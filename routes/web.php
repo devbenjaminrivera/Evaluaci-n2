@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RutasControlador;
 use App\Http\Controllers\BladeControlador;
+use App\Http\Controllers\EloquentControlador;
+use App\Http\Controllers\RegistroEquipoControlador;
 
 // Redirigir la raíz del sitio al Núcleo 1 por defecto
 Route::get('/', function () {
@@ -23,10 +25,8 @@ Route::post('/rutas-y-controladores/calcular', [RutasControlador::class, 'calcul
 Route::get('/vistas-blade', [BladeControlador::class, 'index'])
     ->name('nt3.index');
 
-Route::get('/eloquent-orm', function () {
-    return view('nucleos.nt4');
-})->name('nt4.index');
+Route::get('/eloquent-orm', [EloquentControlador::class, 'index'])
+    ->name('nt4.index');
 
-Route::get('/formularios-validaciones', function () {
-    return view('nucleos.nt5');
-})->name('nt5.index');
+Route::get('/formularios-validaciones', [RegistroEquipoControlador::class, 'index'])->name('nt5.index');
+Route::post('/formularios-validaciones/guardar', [RegistroEquipoControlador::class, 'store'])->name('nt5.guardar');
