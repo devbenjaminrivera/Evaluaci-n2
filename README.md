@@ -1,12 +1,12 @@
 # Guía Didáctica Interactiva de Laravel (NT1 — NT5)
 ### Universidad Adventista de Chile (UNACH)
-**Facultad de Ingeniería y Ciencias del Trabajo** **Asignatura:** Electivo Profesional I — Desarrollo Web con Laravel  
+**Facultad de Ingeniería y Negocios** **Asignatura:** Electivo Profesional I — Desarrollo Web con Laravel  
 **Nota 2 (20%):** Guía Didáctica de Núcleos Temáticos  
 **Año Académico:** 2026  
 
 ---
 
-## Identificación del Equipo y Colaboración (Dimensión 4)
+## Identificación del Equipo
 * **Alumno:** Benjamín Felipe Rivera Araneda (Ingeniería Civil Informática)
 
 ---
