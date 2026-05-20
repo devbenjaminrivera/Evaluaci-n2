@@ -88,6 +88,38 @@ Acceda en su navegador a: **[http://localhost:8000](http://localhost:8000)**
 ## Estructura y Script de la Base de Datos (Persistencia Real)
 La persistencia de datos exigida por la pauta se centraliza en la tabla `equipos`, la cual almacena la información de hardware del taller informático.
 
+### Script SQL completo (crear tabla y poblar datos de prueba)
+
+Ejecute el siguiente script directamente en phpMyAdmin o desde la terminal con `mysql -u root laravel_unach < script.sql`:
+
+```sql
+-- Crear la base de datos si no existe
+CREATE DATABASE IF NOT EXISTS laravel_unach
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE laravel_unach;
+
+-- Crear la tabla de equipos
+CREATE TABLE IF NOT EXISTS equipos (
+    id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    marca       VARCHAR(255)    NOT NULL,
+    modelo      VARCHAR(255)    NOT NULL,
+    diagnostico VARCHAR(255)    NULL,
+    estado      VARCHAR(255)    NOT NULL,
+    created_at  TIMESTAMP       NULL,
+    updated_at  TIMESTAMP       NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Poblar con datos de prueba iniciales
+INSERT INTO equipos (marca, modelo, diagnostico, estado, created_at, updated_at) VALUES
+('Lenovo', 'IdeaPad 5',    'Falla de placa madre / Error Kernel-Power 41. Pruebas de energía y swap de SSD realizados.', 'En Taller',  NOW(), NOW()),
+('HP',     'Pavilion',     'Mantenimiento preventivo.',                                                                   'Operativo',  NOW(), NOW()),
+('Asus',   'TUF Gaming',   'Fallo en controlador principal. Reparación de hardware requerida.',                           'Pendiente',  NOW(), NOW());
+```
+
+> **Nota:** Lo anterior es equivalente a ejecutar `php artisan migrate:fresh --seed`, que es el método recomendado para este proyecto ya que usa las migraciones y seeders de Laravel.
+
 ### Código de la Migración (`database/migrations/xxxx_create_equipos_table.php`):
 ```php
 public function up(): void
@@ -103,9 +135,6 @@ public function up(): void
 }
 ```
 
-### Script del Sembrador (`database/seeders/EquipoSeeder.php`):
-Inserta automáticamente registros iniciales basados en problemas reales de hardware (incluyendo errores de energía de placas base y rutinas de soporte) para verificar la conexión de datos de inmediato.
-
 ---
 
 ## Historial de Núcleos, Descripciones de Pruebas y Evidencias (Dimensión 3)
@@ -115,32 +144,29 @@ A continuación se detalla el comportamiento técnico de cada núcleo temático,
 ### 🔹 NT1: Introducción a Laravel y Fundamentos
 * **Descripción de la Prueba:** Se levantó el servidor y se accedió al módulo de Introducción. Se verificó que el layout maestro heredara de forma correcta la barra de navegación lateral y los CDNs. Se probó el funcionamiento del helper dinámico `config()` y la inyección en tiempo real de las versiones del núcleo de Laravel y PHP del servidor local en las tarjetas informativas.
 * **Evidencias Visuales:**
-  ![NT1 - Vista Teórica y Estructura](public/evidencias/nt1_teoria.png)
-  ![NT1 - Panel de Entorno del Servidor](public/evidencias/nt1_practica.png)
+  ![NT1 - Vista General del Módulo](public/evidencias/nt1_vista_general.png)
+  ![NT1 - Panel de Entorno del Servidor (Ejemplo Práctico)](public/evidencias/nt1_ejemplo_practico.png)
 
 ### 🔹 NT2: Rutas y Controladores
 * **Descripción de la Prueba:** Se ingresó al simulador de tarifas de pasajes del módulo. Se probó el envío de un formulario mediante el método HTTP `POST` hacia `RutasControlador`. El controlador recibió con éxito la inyección del objeto `Request`, procesó lógicamente el descuento por Tarjeta Nacional Estudiantil (TNE) y retornó a la misma vista redirigiendo con una sesión flash (`with()`), desplegando el cuadro verde de respuesta.
 * **Evidencias Visuales:**
-  ![NT2 - Código de Enrutamiento Moderno](public/evidencias/nt2_teoria.png)
-  ![NT2 - Simulador de Petición POST Funcional](public/evidencias/nt2_practica.png)
+  ![NT2 - Vista General y Código de Enrutamiento](public/evidencias/nt2_vista_general.png)
+  ![NT2 - Simulador de Petición POST Funcional](public/evidencias/nt2_consulta_post.png)
 
 ### 🔹 NT3: Vistas y Blade Templates
 * **Descripción de la Prueba:** Se testeó la inyección de una colección multidimensional desde `BladeControlador`. En la vista, se comprobó el correcto renderizado dinámico de una tabla HTML utilizando la directiva `@foreach`. Se verificó el funcionamiento de los condicionales `@if` para evaluar el estado académico de las asignaturas y se explotó la variable mágica `$loop` para pintar de forma alternada las filas (`$loop->even`) y destacar el inicio y término del arreglo.
 * **Evidencias Visuales:**
-  ![NT3 - Directivas y Sintaxis de Compilación](public/evidencias/nt3_teoria.png)
-  ![NT3 - Tabla de Cursos Evaluada por Blade](public/evidencias/nt3_practica.png)
+  ![NT3 - Vista General y Directivas Blade](public/evidencias/nt3_vista_general.png)
+  ![NT3 - Tabla de Cursos Renderizada Dinámicamente](public/evidencias/nt3_ejemplo_practico.png)
 
 ### 🔹 NT4: Modelos y Bases de Datos (Eloquent ORM)
 * **Descripción de la Prueba:** Se comprobó la comunicación con el motor MySQL de XAMPP. La vista ejecuta con éxito una llamada orientada a objetos mediante el ORM a través de `Equipo::all()`. Se validó que, al renderizar la tabla de estado de hardware, el bucle fuera capaz de interpretar los objetos de la base de datos y pintar dinámicamente insignias (Badges) de color verde, amarillo o rojo según el estado guardado.
 * **Evidencias Visuales:**
-  ![NT4 - Mapeo Relacional de Modelos](public/evidencias/nt4_teoria.png)
-  ![NT4 - Renderizado de Hardware desde MySQL](public/evidencias/nt4_practica.png)
+  ![NT4 - Vista General y Mapeo de Modelos Eloquent](public/evidencias/nt4_vista_general.png)
+  ![NT4 - Renderizado de Hardware desde MySQL en Tiempo Real](public/evidencias/nt4_persistencia.png)
 
 ### 🔹 NT5: Formularios y Validaciones
 * **Descripción de la Prueba:** Se realizaron dos pruebas críticas en este módulo. Primero, se presionó el botón de envío con los campos del formulario de ingreso de hardware completamente vacíos, verificando que Laravel interceptara la petición, cancelara el almacenamiento y retornara desplegando los mensajes de error personalizados en español mediante la directiva `@error`. Segundo, se realizó un registro válido completo; se verificó que la función `save()` persistiera los datos en la base de datos MySQL de XAMPP y que el registro apareciera de inmediato en el inventario del NT4.
 * **Evidencias Visuales:**
-  ![NT5 - Interceptación y Errores de Validación](public/evidencias/nt5_errores.png)
-  ![NT5 - Persistencia Exitosa en Base de Datos](public/evidencias/nt5_exito.png)
-
----
-*Este proyecto cumple estrictamente con el patrón arquitectónico MVC, control de excepciones en Blade, sanitización de datos y los requisitos de documentación de la pauta de evaluación de la Universidad Adventista de Chile.*
+  ![NT5 - Vista General del Formulario](public/evidencias/nt5_vista_general.png)
+  ![NT5 - Formulario con Validaciones y Persistencia](public/evidencias/nt5_formulario.png)
