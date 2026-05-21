@@ -2,57 +2,57 @@
 
 @section('title', 'NT1: Introducción a Laravel')
 
-@section('header', 'Núcleo Temático 1: Introducción y Fundamentos')
+@section('header', 'Introducción y Fundamentos de Laravel')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
-        <div class="prose max-w-none text-gray-700">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">¿Qué es Laravel?</h3>
-            <p class="mb-4">
-                Laravel es un framework de código abierto para el desarrollo de aplicaciones web con PHP. Su filosofía se centra en la elegancia, la simplicidad y la legibilidad del código, facilitando tareas comunes como el enrutamiento, la autenticación, las sesiones y el almacenamiento en caché.
-            </p>
 
-            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">El Patrón MVC</h3>
-            <p class="mb-4">
-                Laravel adopta el patrón de arquitectura de software <strong>Modelo-Vista-Controlador (MVC)</strong>, el cual separa la lógica de la aplicación de la interfaz de usuario:
-            </p>
-            <ul class="list-disc pl-5 mb-4 space-y-2">
-                <li><strong>Modelo:</strong> Representa los datos y las reglas de negocio. En Laravel, esto se maneja elegantemente con Eloquent ORM.</li>
-                <li><strong>Vista:</strong> Es la interfaz de usuario. Laravel utiliza el motor de plantillas Blade para renderizar el HTML dinámicamente.</li>
-                <li><strong>Controlador:</strong> Actúa como intermediario. Recibe las peticiones HTTP (rutas), interactúa con los Modelos para obtener datos y los envía a las Vistas.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Herramientas Core</h3>
-            <p class="mb-4">
-                El ecosistema de Laravel funciona gracias a dos herramientas de línea de comandos fundamentales:
-            </p>
-            <ul class="list-disc pl-5 mb-4 space-y-2">
-                <li><strong>Composer:</strong> El gestor de dependencias de PHP. Se encarga de instalar Laravel y los paquetes de terceros necesarios.</li>
-                <li><strong>Artisan:</strong> Es la interfaz de línea de comandos (CLI) incluida en Laravel. Permite generar código repetitivo (controladores, migraciones, modelos) y gestionar la base de datos.</li>
-            </ul>
+{{-- BLOQUE 1: Historia y características --}}
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Historia y Características de Laravel</h3>
         </div>
+        <p style="margin-bottom:1rem;">
+            Laravel fue creado por <strong>Taylor Otwell</strong> y lanzado en <strong>junio de 2011</strong> como una alternativa más elegante y expresiva a CodeIgniter, que en ese momento carecía de soporte nativo para autenticación y autorización.
+        </p>
+        <p style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:1rem;">
+            Desde su primera versión, el framework creció rápidamente hasta convertirse en el framework PHP más popular del mundo, con versiones mayores que introdujeron características fundamentales:
+        </p>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.25rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Laravel 3 (2012)</strong> — Introduce Artisan CLI y el sistema de migraciones.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Laravel 4 (2013)</strong> — Reescritura total usando Composer. Base de los paquetes modernos.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Laravel 5 (2015)</strong> — Introduce el motor Blade maduro, middleware y Service Providers.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Laravel 8–10 (2020–2023)</strong> — Jetstream, Livewire, Octane y soporte PHP 8.x.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Laravel 11–12 (2024–2025)</strong> — Estructura simplificada, Folio, Volt y Reverb.</li>
+        </ul>
 
-        <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Comandos de Instalación</h3>
-            <p class="text-sm text-gray-600 mb-3">Para iniciar un proyecto desde cero, se utiliza Composer. El siguiente comando crea una estructura limpia de directorios:</p>
-            
-            <pre><code class="language-bash rounded-md shadow-sm">
-# Creación de un nuevo proyecto
-composer create-project laravel/laravel nombre_del_proyecto
+        <h4 style="margin-bottom:0.75rem;">Características principales</h4>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.45rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Motor de plantillas <strong>Blade</strong> con cero sobrecarga.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Eloquent ORM</strong> para interacción con BD sin SQL manual.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Sistema de <strong>Migraciones</strong> para control de versiones de BD.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><strong>Artisan CLI</strong> para generación de código y gestión del proyecto.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Sistema de <strong>Middleware</strong> para filtrado de peticiones HTTP.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Ecosistema de paquetes oficiales: Sanctum, Passport, Horizon, Telescope.</li>
+        </ul>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div class="panel-dark">
+            <div class="code-label">bash — instalación del proyecto</div>
+            <pre><code class="language-bash"># Crear un nuevo proyecto Laravel con Composer
+composer create-project laravel/laravel nombre_proyecto
 
 # Ingresar al directorio
-cd nombre_del_proyecto
+cd nombre_proyecto
 
-# Iniciar el servidor local de desarrollo
-php artisan serve
-            </code></pre>
+# Levantar el servidor local de desarrollo
+php artisan serve</code></pre>
+        </div>
 
-            <h3 class="text-xl font-bold text-gray-800 mt-8 mb-4">Estructura del archivo .env</h3>
-            <p class="text-sm text-gray-600 mb-3">El archivo de entorno es crucial para definir las variables globales, como la conexión a la base de datos, sin exponer credenciales en el código fuente:</p>
-            
-            <pre><code class="language-ini rounded-md shadow-sm">
-APP_NAME="Guía UNACH"
+        <div class="panel-dark">
+            <div class="code-label">ini — archivo .env (variables de entorno)</div>
+            <pre><code class="language-ini">APP_NAME="Guía UNACH"
 APP_ENV=local
 APP_KEY=base64:x/YourKeyHere=
 APP_DEBUG=true
@@ -63,51 +63,235 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=laravel_unach
 DB_USERNAME=root
-DB_PASSWORD=
-            </code></pre>
+DB_PASSWORD=</code></pre>
         </div>
     </div>
+</div>
 
-    <hr class="my-10 border-gray-300">
+<hr>
 
-    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-        <h3 class="text-2xl font-bold text-blue-800 mb-2">Ejemplo Práctico Funcional</h3>
-        <p class="text-blue-900 mb-4">
-            Aquí insertaremos el resultado de la práctica para demostrar que el entorno y la estructura base están operativos.
+{{-- BLOQUE 2: Patrón MVC --}}
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Arquitectura MVC</h3>
+        </div>
+        <p style="margin-bottom:1rem;">
+            Laravel adopta el patrón <strong>Modelo-Vista-Controlador (MVC)</strong>, que separa la lógica de negocio de la interfaz de usuario. Cada capa tiene una responsabilidad única y bien definida:
         </p>
-        
-        <div id="practica-nt1" class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
-            <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span class="flex h-3 w-3 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                </span>
-                Estado del Servidor en Tiempo Real (Helper `config()`)
-            </h4>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div class="p-4 bg-slate-50 rounded border border-slate-200">
-                    <span class="text-xs font-semibold text-slate-500 uppercase block">Nombre de la App</span>
-                    <strong class="text-base text-slate-800">{{ config('app.name') }}</strong>
-                </div>
-                
-                <div class="p-4 bg-slate-50 rounded border border-slate-200">
-                    <span class="text-xs font-semibold text-slate-500 uppercase block">Entorno de Trabajo</span>
-                    <strong class="text-base text-blue-600 font-mono">{{ config('app.env') }}</strong>
-                </div>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.65rem; margin-bottom:1.25rem;">
+            <li style="padding-left:0.75rem; border-left:3px solid var(--accent); font-size:0.88rem; color:var(--ink-soft);">
+                <strong style="color:var(--ink);">Modelo</strong> — Representa los datos y las reglas de negocio. Se comunica con la base de datos a través de Eloquent ORM. Vive en <code>app/Models/</code>.
+            </li>
+            <li style="padding-left:0.75rem; border-left:3px solid #2040a0; font-size:0.88rem; color:var(--ink-soft);">
+                <strong style="color:var(--ink);">Vista</strong> — Interfaz de usuario. Usa el motor Blade para renderizar HTML dinámico a partir de los datos recibidos. Vive en <code>resources/views/</code>.
+            </li>
+            <li style="padding-left:0.75rem; border-left:3px solid #2d6b47; font-size:0.88rem; color:var(--ink-soft);">
+                <strong style="color:var(--ink);">Controlador</strong> — Capa intermedia. Recibe peticiones HTTP, consulta los Modelos y retorna las Vistas. Vive en <code>app/Http/Controllers/</code>.
+            </li>
+        </ul>
 
-                <div class="p-4 bg-slate-50 rounded border border-slate-200">
-                    <span class="text-xs font-semibold text-slate-500 uppercase block">Modo Depuración (Debug)</span>
-                    <strong class="text-base {{ config('app.debug') ? 'text-amber-600' : 'text-emerald-600' }}">
-                        {{ config('app.debug') ? 'Activo (True)' : 'Inactivo (False)' }}
-                    </strong>
+        <div class="cycle-flow">
+            <span class="cycle-node node-blue">Request</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-amber">Router</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-green">Controller</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-amber">Model</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-purple">View</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-blue">Response</span>
+        </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div class="panel-dark">
+            <div class="code-label">php — ciclo completo MVC en Laravel</div>
+            <pre><code class="language-php">// 1. RUTA: routes/web.php
+Route::get('/equipos', [EquipoControlador::class, 'index']);
+
+// 2. CONTROLADOR: app/Http/Controllers/EquipoControlador.php
+public function index()
+{
+    // Consulta al MODELO
+    $equipos = Equipo::all();
+
+    // Retorna la VISTA con los datos
+    return view('equipos.index', compact('equipos'));
+}
+
+// 3. MODELO: app/Models/Equipo.php
+class Equipo extends Model
+{
+    protected $fillable = ['marca', 'modelo', 'estado'];
+}
+
+// 4. VISTA: resources/views/equipos/index.blade.php
+    @@foreach($equipos as $equipo)
+        @{{ $equipo->marca }}
+    @@endforeach</code></pre>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+{{-- BLOQUE 3: Estructura de directorios --}}
+<div style="margin-bottom:2.5rem;">
+    <div class="section-heading">
+        <h3>Estructura de Directorios de un Proyecto Laravel</h3>
+    </div>
+    <p style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:1.5rem;">
+        Al crear un proyecto con <code>composer create-project</code>, Laravel genera la siguiente estructura. Cada carpeta tiene una responsabilidad específica dentro del patrón MVC:
+    </p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">app/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Núcleo de la aplicación: Modelos, Controladores, Middleware, Requests.</span>
                 </div>
             </div>
-
-            <div class="mt-4 p-3 bg-slate-800 text-slate-200 rounded font-mono text-xs flex justify-between items-center">
-                <span>Versión de Laravel: <strong>{{ app()->version() }}</strong></span>
-                <span>Versión de PHP: <strong>{{ phpversion() }}</strong></span>
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">routes/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Define las URLs de la app. <code>web.php</code> para rutas web, <code>api.php</code> para APIs.</span>
+                </div>
+            </div>
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">resources/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Vistas Blade (<code>views/</code>), archivos CSS y JS sin compilar (<code>css/</code>, <code>js/</code>).</span>
+                </div>
+            </div>
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">database/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Migraciones (<code>migrations/</code>), Seeders, Factories para datos de prueba.</span>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">public/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Único directorio accesible desde el navegador. Contiene <code>index.php</code> (punto de entrada) y assets estáticos.</span>
+                </div>
+            </div>
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">config/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Archivos de configuración de la app: BD (<code>database.php</code>), correo, caché, sesiones.</span>
+                </div>
+            </div>
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">storage/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Archivos generados en runtime: logs, caché de vistas Blade compiladas, archivos subidos.</span>
+                </div>
+            </div>
+            <div class="panel" style="padding:1rem 1.25rem;">
+                <div style="display:flex; gap:0.75rem; align-items:baseline;">
+                    <code style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--accent); background:none; border:none; padding:0; min-width:9rem;">vendor/</code>
+                    <span style="font-size:0.83rem; color:var(--ink-soft);">Dependencias instaladas por Composer. No se edita manualmente ni se sube a Git.</span>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<hr>
+
+{{-- BLOQUE 4: Artisan + Composer --}}
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Artisan CLI — Comandos Esenciales</h3>
+        </div>
+        <p style="margin-bottom:1rem; font-size:0.88rem;">
+            <strong>Artisan</strong> es la interfaz de línea de comandos incluida en Laravel. Automatiza tareas repetitivas de desarrollo: generación de clases, gestión de la BD, limpieza de caché y arranque del servidor.
+        </p>
+        <p style="margin-bottom:1rem; font-size:0.85rem; color:var(--ink-soft);">
+            Se ejecuta siempre desde la raíz del proyecto con <code>php artisan [comando]</code>. El comando <code>php artisan list</code> muestra todos los comandos disponibles.
+        </p>
+
+        <div class="section-heading" style="margin-top:1.75rem;">
+            <h3>Composer en el Ecosistema PHP</h3>
+        </div>
+        <p style="margin-bottom:0.75rem; font-size:0.88rem;">
+            <strong>Composer</strong> es el gestor de dependencias estándar de PHP. Lee el archivo <code>composer.json</code> del proyecto para instalar, actualizar y autocargar todos los paquetes requeridos.
+        </p>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.45rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>composer install</code> — Instala las dependencias listadas en <code>composer.lock</code>.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>composer update</code> — Actualiza las dependencias a sus últimas versiones permitidas.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>composer require paquete/nombre</code> — Agrega un nuevo paquete al proyecto.</li>
+        </ul>
+    </div>
+
+    <div class="panel-dark">
+        <div class="code-label">bash — comandos Artisan esenciales</div>
+        <pre><code class="language-bash"># ── Servidor ───────────────────────────────────
+php artisan serve                    # Inicia servidor en localhost:8000
+
+# ── Generación de código ───────────────────────
+php artisan make:controller NombreControlador
+php artisan make:model NombreModelo -m    # -m crea la migración junto al modelo
+php artisan make:migration create_tabla_table
+php artisan make:seeder NombreSeeder
+php artisan make:request NombreRequest
+php artisan make:middleware NombreMiddleware
+
+# ── Base de datos ──────────────────────────────
+php artisan migrate                  # Ejecuta migraciones pendientes
+php artisan migrate:fresh --seed     # Reinicia BD y carga seeders
+php artisan db:seed                  # Ejecuta solo los seeders
+
+# ── Caché y optimización ───────────────────────
+php artisan cache:clear              # Limpia caché de datos
+php artisan view:clear               # Limpia vistas Blade compiladas
+php artisan config:clear             # Limpia caché de configuración
+php artisan optimize                 # Optimiza para producción
+
+# ── Información ────────────────────────────────
+php artisan list                     # Lista todos los comandos disponibles
+php artisan route:list               # Muestra todas las rutas registradas</code></pre>
+    </div>
+</div>
+
+<hr>
+
+{{-- BLOQUE 5: Ejemplo práctico --}}
+<div class="panel-accent" style="margin-bottom:1.5rem;">
+    <h4 style="color:var(--accent); margin-bottom:0.5rem;">Ejemplo Práctico Funcional</h4>
+    <p style="font-size:0.85rem; color:var(--ink-soft);">
+        El helper <code>config()</code> accede a las variables del entorno en tiempo real desde cualquier vista Blade. Los valores a continuación son leídos en vivo desde el <code>.env</code> del servidor.
+    </p>
+</div>
+
+<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1rem;">
+    <div class="panel" style="padding:1rem;">
+        <h4 style="margin-bottom:0.4rem;">Nombre de la App</h4>
+        <strong style="font-size:0.95rem; color:var(--ink);">{{ config('app.name') }}</strong>
+    </div>
+    <div class="panel" style="padding:1rem;">
+        <h4 style="margin-bottom:0.4rem;">Entorno</h4>
+        <strong style="font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--accent);">{{ config('app.env') }}</strong>
+    </div>
+    <div class="panel" style="padding:1rem;">
+        <h4 style="margin-bottom:0.4rem;">Modo Debug</h4>
+        <strong style="font-size:0.88rem; color:{{ config('app.debug') ? '#7a5c0a' : '#2d6b47' }};">
+            {{ config('app.debug') ? 'Activo' : 'Inactivo' }}
+        </strong>
+    </div>
+</div>
+
+<div class="info-bar">
+    <span class="status-dot"><span class="dot-live"></span> Servidor activo</span>
+    <span>Laravel <strong>{{ app()->version() }}</strong></span>
+    <span>PHP <strong>{{ phpversion() }}</strong></span>
+</div>
+
 @endsection

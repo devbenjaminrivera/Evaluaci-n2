@@ -2,195 +2,230 @@
 
 @section('title', 'NT2: Rutas y Controladores')
 
-@section('header', 'Núcleo Temático 2: Rutas y Controladores')
+@section('header', 'Rutas y Controladores')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
-        <div class="prose max-w-none text-gray-700">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Sistema de Enrutamiento</h3>
-            <p class="mb-4">
-                En Laravel, las rutas son las encargadas de registrar las URLs de la aplicación y asociarlas a una acción específica. Se definen principalmente en el archivo <code>routes/web.php</code> para interfaces web tradicionales.
-            </p>
-            <p class="mb-4">
-                Soportan múltiples métodos HTTP (<code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>) y permiten definir parámetros dinámicos directos en la URL utilizando llaves (ej: <code>/usuario/{id}</code>).
-            </p>
 
-            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">¿Qué es un Controlador?</h3>
-            <p class="mb-4">
-                Los controladores pertenecen a la capa intermedia del patrón MVC. En lugar de procesar toda la lógica de negocio directamente en los archivos de rutas mediante funciones anónimas, delegamos esa responsabilidad a métodos dentro de clases Controlador.
-            </p>
-            <p class="mb-4">
-                Esto mantiene el código limpio, escalable, organizado y facilita la reutilización de métodos y la inyección de dependencias (como el objeto <code>Request</code>).
-            </p>
-
-            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Middleware</h3>
-            <p class="mb-4">
-                El Middleware actúa como un filtro o capa intermedia que intercepta las peticiones HTTP <strong>antes</strong> de que lleguen al controlador (o las respuestas antes de que salgan). Es ideal para tareas transversales como autenticación, autorización, logging o verificación de roles.
-            </p>
-            <ul class="list-disc pl-5 mb-4 space-y-2 text-sm">
-                <li>Laravel incluye middlewares integrados como <code>auth</code> (verifica sesión activa) y <code>verified</code> (verifica email).</li>
-                <li>Se puede crear middleware personalizado con: <code>php artisan make:middleware NombreMiddleware</code></li>
-                <li>Se aplica directamente en la definición de la ruta con el método <code>->middleware('nombre')</code>.</li>
-                <li>También se puede aplicar a grupos de rutas enteros con <code>Route::middleware([...])->group(...)</code>.</li>
-            </ul>
+{{-- BLOQUE 1: Tipos de rutas y parámetros --}}
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Tipos de Rutas HTTP</h3>
         </div>
+        <p style="margin-bottom:1rem; font-size:0.88rem;">
+            En Laravel las rutas se definen en <code>routes/web.php</code> y se asocian a un método HTTP. Cada método tiene un propósito semántico dentro del patrón REST:
+        </p>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.25rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>GET</code> — Obtener y mostrar recursos. No modifica datos.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>POST</code> — Enviar datos para crear un nuevo recurso.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>PUT / PATCH</code> — Actualizar un recurso existente (total o parcialmente).</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>DELETE</code> — Eliminar un recurso existente.</li>
+        </ul>
 
-        <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 space-y-5">
-            <div>
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Definición en routes/web.php</h3>
-                <pre><code class="language-php rounded-md shadow-sm">
-use App\Http\Controllers\RutasControlador;
+        <div class="section-heading" style="margin-top:1.75rem;">
+            <h3>Parámetros y Parámetros Opcionales</h3>
+        </div>
+        <p style="margin-bottom:0.75rem; font-size:0.88rem;">
+            Las rutas pueden recibir <strong>parámetros dinámicos</strong> en la URL. Se definen con llaves <code>{param}</code>. Si el parámetro puede estar ausente, se declara con signo de interrogación <code>{param?}</code> y se le asigna un valor por defecto en el controlador.
+        </p>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.45rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>/usuario/{id}</code> — Parámetro <strong>requerido</strong>. Si no se pasa, Laravel retorna 404.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>/usuario/{id?}</code> — Parámetro <strong>opcional</strong>. Si no se pasa, el controlador usa el valor por defecto.</li>
+        </ul>
+    </div>
 
-// Ruta GET para mostrar el formulario
-Route::get('/rutas-y-controladores', [RutasControlador::class, 'index'])
-    -&gt;name('nt2.index');
+    <div class="panel-dark">
+        <div class="code-label">php — routes/web.php — tipos de rutas y parámetros</div>
+        <pre><code class="language-php">// Rutas por método HTTP
+Route::get('/equipos', [EquipoControlador::class, 'index']);
+Route::post('/equipos', [EquipoControlador::class, 'store']);
+Route::put('/equipos/{id}', [EquipoControlador::class, 'update']);
+Route::delete('/equipos/{id}', [EquipoControlador::class, 'destroy']);
 
-// Ruta POST para procesar el formulario
-Route::post('/rutas-y-controladores/calcular', [RutasControlador::class, 'calcularPasaje'])
-    -&gt;name('nt2.calcular');
+// Parámetro REQUERIDO — falla con 404 si no se pasa
+Route::get('/usuario/{id}', function ($id) {
+    return "Usuario: " . $id;
+});
 
-// Ruta protegida por Middleware de autenticación
-Route::get('/panel', [RutasControlador::class, 'panel'])
-    -&gt;middleware('auth')
-    -&gt;name('panel');
-                </code></pre>
-            </div>
+// Parámetro OPCIONAL — usa valor por defecto si no se pasa
+Route::get('/categoria/{slug?}', function ($slug = 'general') {
+    return "Categoría: " . $slug;
+});
+// /categoria       → "Categoría: general"
+// /categoria/tech  → "Categoría: tech"</code></pre>
+    </div>
+</div>
 
-            <div>
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Método en el Controlador</h3>
-                <pre><code class="language-php rounded-md shadow-sm">
-public function calcularPasaje(Request $request) {
-    $tipo = $request-&gt;input('tipo_boleto');
-    $precioBase = 3500;
-    
-    if ($tipo === 'estudiante') {
-        $total = $precioBase - ($precioBase * 0.40);
-    } else {
-        $total = $precioBase;
-    }
-    
-    return redirect()-&gt;route('nt2.index')
-        -&gt;with('resultado_pasaje', "Total: $" . $total);
-}
-                </code></pre>
-            </div>
+<hr>
+
+{{-- BLOQUE 2: Controladores básicos y RESTful --}}
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Controladores y Controladores RESTful</h3>
+        </div>
+        <p style="margin-bottom:0.75rem; font-size:0.88rem;">
+            Un <strong>controlador básico</strong> agrupa métodos relacionados en una clase. Un <strong>controlador RESTful</strong> (o de recursos) sigue la convención de los 7 métodos estándar de Laravel que mapean automáticamente las operaciones CRUD a rutas y métodos HTTP.
+        </p>
+        <p style="margin-bottom:0.75rem; font-size:0.85rem; color:var(--ink-soft);">
+            Se genera con <code>php artisan make:controller NombreControlador --resource</code> y se registra en una sola línea con <code>Route::resource()</code>.
+        </p>
+
+        <div style="background:#fff; border:1px solid var(--rule); border-radius:4px; overflow:hidden; margin-top:1rem;">
+            <table class="data-table" style="font-size:0.75rem;">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>URL</th>
+                        <th>Acción</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="mono">GET</td><td class="mono">/equipos</td><td>index</td><td class="mono">equipos.index</td></tr>
+                    <tr class="alt"><td class="mono">GET</td><td class="mono">/equipos/create</td><td>create</td><td class="mono">equipos.create</td></tr>
+                    <tr><td class="mono">POST</td><td class="mono">/equipos</td><td>store</td><td class="mono">equipos.store</td></tr>
+                    <tr class="alt"><td class="mono">GET</td><td class="mono">/equipos/{id}</td><td>show</td><td class="mono">equipos.show</td></tr>
+                    <tr><td class="mono">GET</td><td class="mono">/equipos/{id}/edit</td><td>edit</td><td class="mono">equipos.edit</td></tr>
+                    <tr class="alt"><td class="mono">PUT/PATCH</td><td class="mono">/equipos/{id}</td><td>update</td><td class="mono">equipos.update</td></tr>
+                    <tr><td class="mono">DELETE</td><td class="mono">/equipos/{id}</td><td>destroy</td><td class="mono">equipos.destroy</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <hr class="my-8 border-gray-300">
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div class="panel-dark">
+            <div class="code-label">bash — generar controlador RESTful</div>
+            <pre><code class="language-bash"># Genera los 7 métodos estándar automáticamente
+php artisan make:controller EquipoControlador --resource</code></pre>
+        </div>
+        <div class="panel-dark">
+            <div class="code-label">php — routes/web.php — ruta de recurso</div>
+            <pre><code class="language-php">// Registra las 7 rutas RESTful en una línea
+Route::resource('equipos', EquipoControlador::class);
 
-    {{-- SECCIÓN MIDDLEWARE --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+// Solo algunas rutas
+Route::resource('equipos', EquipoControlador::class)
+    ->only(['index', 'store', 'destroy']);</code></pre>
+        </div>
+        <div class="panel-dark">
+            <div class="code-label">php — estructura del controlador RESTful</div>
+            <pre><code class="language-php">class EquipoControlador extends Controller
+{
+    public function index()   { /* lista todos */ }
+    public function create()  { /* muestra form crear */ }
+    public function store()   { /* guarda nuevo */ }
+    public function show($id) { /* muestra uno */ }
+    public function edit($id) { /* muestra form editar */ }
+    public function update($id) { /* actualiza */ }
+    public function destroy($id){ /* elimina */ }
+}</code></pre>
+        </div>
+    </div>
+</div>
 
-        <div class="text-gray-700">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Middleware: Concepto y Aplicación</h3>
-            <p class="mb-4">
-                Cuando una petición llega al servidor, el ciclo en Laravel es:
-            </p>
-            <div class="flex items-center gap-2 text-sm font-mono bg-slate-100 p-3 rounded mb-4 flex-wrap">
-                <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded">Request</span>
-                <span class="text-gray-400">→</span>
-                <span class="bg-amber-200 text-amber-800 px-2 py-1 rounded">Middleware</span>
-                <span class="text-gray-400">→</span>
-                <span class="bg-green-200 text-green-800 px-2 py-1 rounded">Controlador</span>
-                <span class="text-gray-400">→</span>
-                <span class="bg-purple-200 text-purple-800 px-2 py-1 rounded">Vista</span>
-                <span class="text-gray-400">→</span>
-                <span class="bg-amber-200 text-amber-800 px-2 py-1 rounded">Middleware</span>
-                <span class="text-gray-400">→</span>
-                <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded">Response</span>
-            </div>
-            <p class="mb-3 text-sm">
-                El middleware puede <strong>dejar pasar</strong> la petición (llamando a <code>$next($request)</code>),
-                <strong>redirigir</strong> a otra ruta, o <strong>abortar</strong> con un error HTTP.
-            </p>
-            <p class="text-sm bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r text-gray-700">
-                <strong>Ejemplo real:</strong> El middleware <code>auth</code> de Laravel verifica si el usuario tiene una sesión activa. Si no la tiene, redirige automáticamente al login en lugar de ejecutar el controlador.
-            </p>
+<hr>
+
+{{-- BLOQUE 3: Middleware --}}
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Middleware</h3>
+        </div>
+        <p style="margin-bottom:0.75rem; font-size:0.88rem;">
+            El Middleware actúa como filtro que intercepta peticiones HTTP <strong>antes</strong> de que lleguen al controlador. Ideal para autenticación, autorización y logging.
+        </p>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.25rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Laravel incluye middlewares integrados: <code>auth</code>, <code>verified</code>, <code>throttle</code>.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Se crean con: <code>php artisan make:middleware NombreMiddleware</code></li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Se aplican a rutas individuales con <code>->middleware('nombre')</code>.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Se aplican a grupos con <code>Route::middleware([...])->group(...)</code>.</li>
+        </ul>
+
+        <p style="font-size:0.83rem; margin-bottom:0.75rem;">Ciclo de la petición con Middleware:</p>
+        <div class="cycle-flow">
+            <span class="cycle-node node-blue">Request</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-amber">Middleware</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-green">Controlador</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-purple">Vista</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-amber">Middleware</span>
+            <span class="cycle-arrow">›</span>
+            <span class="cycle-node node-blue">Response</span>
         </div>
 
-        <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 space-y-5">
-            <div>
-                <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; Crear Middleware personalizado con Artisan</p>
-                <pre><code class="language-bash rounded-md">
-# Genera el archivo en app/Http/Middleware/
-php artisan make:middleware VerificarAcceso
-                </code></pre>
-            </div>
+        <div class="panel-note" style="margin-top:1rem;">
+            <p style="font-size:0.83rem;"><strong>Ejemplo real:</strong> El middleware <code>auth</code> verifica si el usuario tiene sesión activa. Si no la tiene, redirige automáticamente al login antes de ejecutar el controlador.</p>
+        </div>
+    </div>
 
-            <div>
-                <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; app/Http/Middleware/VerificarAcceso.php</p>
-                <pre><code class="language-php rounded-md">
-&lt;?php
-namespace App\Http\Middleware;
-
-use Closure;
-use Illuminate\Http\Request;
-
-class VerificarAcceso
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div class="panel-dark">
+            <div class="code-label">bash — generar middleware</div>
+            <pre><code class="language-bash">php artisan make:middleware VerificarAcceso</code></pre>
+        </div>
+        <div class="panel-dark">
+            <div class="code-label">php — app/Http/Middleware/VerificarAcceso.php</div>
+            <pre><code class="language-php">class VerificarAcceso
 {
     public function handle(Request $request, Closure $next)
     {
-        // Condición: si el parámetro 'clave' no es correcto, redirige
-        if ($request-&gt;input('clave') !== 'unach2026') {
+        if ($request->input('clave') !== 'unach2026') {
             return redirect('/')->with('error', 'Acceso denegado.');
         }
-
-        // Si pasa la verificación, continúa hacia el controlador
         return $next($request);
     }
-}
-                </code></pre>
-            </div>
+}</code></pre>
+        </div>
+        <div class="panel-dark">
+            <div class="code-label">php — aplicar en routes/web.php</div>
+            <pre><code class="language-php">// Ruta individual con middleware
+Route::get('/panel', [AdminControlador::class, 'index'])
+    ->middleware('auth');
 
-            <div>
-                <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; Aplicar en routes/web.php</p>
-                <pre><code class="language-php rounded-md">
-// Aplicar a una ruta individual
-Route::get('/zona-restringida', function () {
-    return view('restringida');
-})-&gt;middleware(VerificarAcceso::class);
-
-// Aplicar a un grupo de rutas
-Route::middleware([VerificarAcceso::class])-&gt;group(function () {
+// Grupo de rutas protegidas
+Route::middleware([VerificarAcceso::class])->group(function () {
     Route::get('/admin', [AdminControlador::class, 'index']);
     Route::get('/reportes', [AdminControlador::class, 'reportes']);
-});
-                </code></pre>
-            </div>
+});</code></pre>
         </div>
     </div>
+</div>
 
-    <hr class="my-8 border-gray-300">
+<hr>
 
-    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-        <h3 class="text-2xl font-bold text-blue-800 mb-2">Ejemplo Práctico Funcional</h3>
-        <p class="text-blue-900 mb-4">
-            Simulador interactivo de tarifas de transporte: Envía una petición <code>POST</code> mediante un formulario hacia el método del controlador, procesa la respuesta y vuelve con los datos usando sesiones flash (<code>with()</code>).
-        </p>
-        
-        <div id="practica-nt2" class="bg-white p-6 rounded-lg shadow-sm border border-blue-100 max-w-md">
-            <form action="{{ route('nt2.calcular') }}" method="POST" class="space-y-4">
-                @csrf
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Selecciona el tipo de Pasajero:</label>
-                    <select name="tipo_boleto" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none">
-                        <option value="adulto">Adulto General ($3.500)</option>
-                        <option value="estudiante">Estudiante con TNE (40% Desc.)</option>
-                    </select>
-                </div>
+{{-- BLOQUE 4: Ejemplo práctico --}}
+<div class="panel-accent" style="margin-bottom:1.5rem;">
+    <h4 style="color:var(--accent); margin-bottom:0.5rem;">Ejemplo Práctico Funcional</h4>
+    <p style="font-size:0.85rem; color:var(--ink-soft);">
+        Simulador de tarifas de transporte. Envía una petición <code>POST</code> al <code>RutasControlador</code>, que procesa el descuento TNE y devuelve el resultado vía sesión flash (<code>with()</code>).
+    </p>
+</div>
 
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200">
-                    Enviar Petición POST al Controlador
-                </button>
-            </form>
-
-            @if(session('resultado_pasaje'))
-                <div class="mt-4 p-4 bg-green-50 border-l-4 border-green-500 rounded-r text-green-800 font-medium">
-                    {{ session('resultado_pasaje') }}
-                </div>
-            @endif
+<div style="max-width:420px; background:#fff; border:1px solid var(--rule); border-radius:4px; padding:1.5rem;">
+    <form action="{{ route('nt2.calcular') }}" method="POST" style="display:flex; flex-direction:column; gap:1rem;">
+        @csrf
+        <div>
+            <label class="form-label">Tipo de pasajero</label>
+            <select name="tipo_boleto" class="form-input">
+                <option value="adulto">Adulto General — $3.500</option>
+                <option value="estudiante">Estudiante con TNE — 40% descuento</option>
+            </select>
         </div>
-    </div>
+        <button type="submit" class="btn-primary">Enviar petición POST al controlador</button>
+    </form>
+
+    @if(session('resultado_pasaje'))
+        <div class="panel-success" style="margin-top:1rem;">
+            <p style="font-size:0.88rem; font-family:'IBM Plex Mono',monospace; color:#2d5a40;">
+                {{ session('resultado_pasaje') }}
+            </p>
+        </div>
+    @endif
+</div>
+
 @endsection

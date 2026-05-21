@@ -2,233 +2,216 @@
 
 @section('title', 'NT5: Formularios y Validaciones')
 
-@section('header', 'Núcleo Temático 5: Formularios y Validaciones')
+@section('header', 'Formularios y Validaciones')
 
 @section('content')
 
-{{-- BLOQUE 1: FORMULARIOS Y CSRF --}}
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-    
-    <div class="text-gray-700">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Manejo de Formularios y Protección CSRF</h3>
-        <p class="mb-4">
-            Laravel facilita enormemente la captura y validación de datos enviados por los usuarios. Una de sus características de seguridad más importantes es la protección contra ataques de falsificación de peticiones en sitios cruzados (CSRF). 
+<!-- Bloque 1: Formularios y CSRF -->
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Manejo de Formularios y Protección CSRF</h3>
+        </div>
+        <p style="margin-bottom:1rem;">
+            Laravel facilita la captura y validación de datos enviados por usuarios. Su característica de seguridad más importante es la protección contra ataques <strong>CSRF</strong> (Cross-Site Request Forgery).
         </p>
-        <p class="mb-4">
-            Cualquier formulario HTML que apunte a una ruta <code class="bg-gray-100 px-1 rounded">POST</code>, <code class="bg-gray-100 px-1 rounded">PUT</code>, <code class="bg-gray-100 px-1 rounded">PATCH</code> o <code class="bg-gray-100 px-1 rounded">DELETE</code> debe incluir la directiva <code class="bg-gray-100 px-1 rounded">&#64;csrf</code> para generar un token oculto que el framework verificará automáticamente.
+        <p style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:1.25rem;">
+            Cualquier formulario con método <code>POST</code>, <code>PUT</code>, <code>PATCH</code> o <code>DELETE</code> debe incluir <code>&#64;csrf</code> para generar un token oculto que Laravel verificará automáticamente.
         </p>
 
-        <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Validación inline con <code>validate()</code></h3>
-        <ul class="list-disc pl-5 mb-4 space-y-2 text-sm">
-            <li><strong><code>validate()</code>:</strong> Método del objeto <code>Request</code> que define reglas. Si falla, Laravel redirige automáticamente al usuario de vuelta con los errores.</li>
-            <li><strong><code>&#64;error('campo')</code>:</strong> Directiva Blade que muestra el mensaje de error de un campo específico.</li>
-            <li><strong><code>old('campo')</code>:</strong> Repuebla el input con lo que el usuario había escrito si la validación falló.</li>
+        <h4 style="margin-bottom:0.75rem;">Validación con <code>validate()</code></h4>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.25rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>validate()</code> — Define reglas estrictas. Si falla, Laravel redirige con errores automáticamente.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>&#64;error('campo')</code> — Directiva Blade que muestra el mensaje de error de ese campo.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);"><code>old('campo')</code> — Repuebla el input con el valor anterior si la validación falló.</li>
         </ul>
 
-        <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Reglas de validación comunes</h3>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">required</code> — Campo obligatorio</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">email</code> — Formato de correo válido</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">min:N / max:N</code> — Longitud mínima/máxima</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">unique:tabla</code> — No repetido en BD</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">confirmed</code> — Coincide con campo _confirmation</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">in:val1,val2</code> — Valor en lista permitida</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">nullable</code> — Permite valor nulo</div>
-            <div class="bg-gray-50 border rounded p-2"><code class="text-blue-700">string / integer</code> — Tipo de dato</div>
+        <h4 style="margin-bottom:0.75rem;">Reglas de validación comunes</h4>
+        <div class="rules-grid">
+            <div class="rule-chip"><code>required</code> — Campo obligatorio</div>
+            <div class="rule-chip"><code>email</code> — Formato de correo válido</div>
+            <div class="rule-chip"><code>min:N / max:N</code> — Longitud mínima/máxima</div>
+            <div class="rule-chip"><code>unique:tabla</code> — No repetido en BD</div>
+            <div class="rule-chip"><code>confirmed</code> — Coincide con _confirmation</div>
+            <div class="rule-chip"><code>in:val1,val2</code> — Valor en lista permitida</div>
+            <div class="rule-chip"><code>nullable</code> — Permite valor nulo</div>
+            <div class="rule-chip"><code>string / integer</code> — Tipo de dato</div>
         </div>
     </div>
 
-    <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
-        <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; Validación en el Controlador (método directo)</p>
-        <pre><code class="language-php rounded-md shadow-sm">
-public function store(Request $request)
+    <div class="panel-dark">
+        <div class="code-label">php — validación en el controlador</div>
+        <pre><code class="language-php">public function store(Request $request)
 {
     // Validación con mensajes personalizados en español
-    $request-&gt;validate([
-        'marca'       =&gt; 'required|string|max:50',
-        'modelo'      =&gt; 'required|string|max:100',
-        'diagnostico' =&gt; 'nullable|string|max:255',
-        'estado'      =&gt; 'required|in:Operativo,En Taller,Pendiente',
+    $request->validate([
+        'marca'       => 'required|string|max:50',
+        'modelo'      => 'required|string|max:100',
+        'diagnostico' => 'nullable|string|max:255',
+        'estado'      => 'required|in:Operativo,En Taller,Pendiente',
     ], [
-        'marca.required'  =&gt; 'Debes ingresar la marca del equipo.',
-        'modelo.required' =&gt; 'El modelo es obligatorio para el registro.',
-        'estado.in'       =&gt; 'El estado seleccionado no es válido.',
+        'marca.required'  => 'Debes ingresar la marca del equipo.',
+        'modelo.required' => 'El modelo es obligatorio.',
+        'estado.in'       => 'El estado seleccionado no es válido.',
     ]);
 
-    // Si pasa la validación, se persiste en la BD
     $equipo = new Equipo();
-    $equipo-&gt;marca       = $request-&gt;marca;
-    $equipo-&gt;modelo      = $request-&gt;modelo;
-    $equipo-&gt;diagnostico = $request-&gt;diagnostico;
-    $equipo-&gt;estado      = $request-&gt;estado;
-    $equipo-&gt;save();
+    $equipo->marca       = $request->marca;
+    $equipo->modelo      = $request->modelo;
+    $equipo->diagnostico = $request->diagnostico;
+    $equipo->estado      = $request->estado;
+    $equipo->save();
 
-    return redirect()-&gt;route('nt5.index')
-                     -&gt;with('exito', '¡Equipo registrado correctamente!');
-}
-        </code></pre>
+    return redirect()->route('nt5.index')
+                     ->with('exito', '¡Equipo registrado correctamente!');
+}</code></pre>
     </div>
 </div>
 
-<hr class="my-8 border-gray-300">
+<hr>
 
-{{-- BLOQUE 2: FORM REQUEST OBJECTS --}}
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+<!-- Bloque 2: Form Request Objects -->
+<div class="two-col" style="margin-bottom:2.5rem;">
+    <div>
+        <div class="section-heading">
+            <h3>Form Request Objects</h3>
+        </div>
+        <p style="margin-bottom:1rem; font-size:0.88rem;">
+            Cuando las reglas son complejas o se reutilizan, colocar la validación directamente en el controlador lo vuelve difícil de mantener. El <strong>Form Request Object</strong> es una clase dedicada que encapsula toda la lógica de validación fuera del controlador.
+        </p>
+        <p style="margin-bottom:1rem; font-size:0.88rem; color:var(--ink-soft);">
+            El controlador declara que espera ese tipo como parámetro y Laravel ejecuta la validación automáticamente <em>antes</em> de que el método se llame.
+        </p>
 
-    <div class="text-gray-700">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Form Request Objects</h3>
-        <p class="mb-4 text-sm">
-            Cuando un controlador maneja múltiples formularios o las reglas son complejas, colocar toda la validación directamente en el controlador lo vuelve difícil de leer y mantener. Para eso existe el <strong>Form Request Object</strong>.
-        </p>
-        <p class="mb-4 text-sm">
-            Un Form Request es una <strong>clase dedicada</strong> que encapsula toda la lógica de validación fuera del controlador. El controlador simplemente declara que espera ese tipo en su parámetro y Laravel ejecuta la validación automáticamente antes de que el método del controlador se llame.
-        </p>
-        <h3 class="text-lg font-bold text-gray-800 mb-2">¿Cuándo usar Form Request?</h3>
-        <ul class="list-disc pl-5 space-y-1 text-sm mb-4">
-            <li>Cuando las reglas de validación son extensas o complejas.</li>
-            <li>Cuando la misma validación se reutiliza en múltiples métodos del controlador.</li>
-            <li>Para mantener el controlador limpio siguiendo el <strong>principio de responsabilidad única</strong>.</li>
-            <li>Cuando se necesita lógica de autorización además de validación (método <code>authorize()</code>).</li>
+        <h4 style="margin-bottom:0.75rem;">¿Cuándo usar Form Request?</h4>
+        <ul style="padding-left:1.25rem; list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.25rem;">
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Cuando las reglas son extensas o complejas.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Cuando la misma validación se reutiliza en múltiples métodos.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Para mantener el controlador limpio: <strong>principio de responsabilidad única</strong>.</li>
+            <li style="padding-left:0.75rem; border-left:2px solid var(--rule); font-size:0.85rem; color:var(--ink-soft);">Cuando se necesita lógica de autorización con <code>authorize()</code>.</li>
         </ul>
-        <div class="text-sm bg-green-50 border-l-4 border-green-400 p-3 rounded-r text-gray-700">
-            <strong>Diferencia clave:</strong> Con <code>validate()</code> inline, la lógica vive en el controlador. Con un Form Request, vive en su propia clase reutilizable y testeable de forma independiente.
+
+        <div class="panel-note">
+            <p style="font-size:0.83rem;"><strong>Diferencia clave:</strong> Con <code>validate()</code> inline la lógica vive en el controlador. Con un Form Request vive en su propia clase reutilizable y testeable de forma independiente.</p>
         </div>
     </div>
 
-    <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 space-y-5">
-        <div>
-            <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; Crear el Form Request con Artisan</p>
-            <pre><code class="language-bash rounded-md">
-# Genera el archivo en app/Http/Requests/
-php artisan make:request RegistroEquipoRequest
-            </code></pre>
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div class="panel-dark">
+            <div class="code-label">bash — generar con artisan</div>
+            <pre><code class="language-bash"># Genera en app/Http/Requests/
+php artisan make:request RegistroEquipoRequest</code></pre>
         </div>
-
-        <div>
-            <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; app/Http/Requests/RegistroEquipoRequest.php</p>
-            <pre><code class="language-php rounded-md">
-&lt;?php
-namespace App\Http\Requests;
-
-use Illuminate\Foundation\Http\FormRequest;
-
-class RegistroEquipoRequest extends FormRequest
+        <div class="panel-dark">
+            <div class="code-label">php — app/Http/Requests/RegistroEquipoRequest.php</div>
+            <pre><code class="language-php">class RegistroEquipoRequest extends FormRequest
 {
-    // Define si el usuario está autorizado a hacer esta petición
     public function authorize(): bool
     {
-        return true; // true = todos pueden enviar este formulario
+        return true;
     }
 
-    // Define las reglas de validación
     public function rules(): array
     {
         return [
-            'marca'       =&gt; 'required|string|max:50',
-            'modelo'      =&gt; 'required|string|max:100',
-            'diagnostico' =&gt; 'nullable|string|max:255',
-            'estado'      =&gt; 'required|in:Operativo,En Taller,Pendiente',
+            'marca'       => 'required|string|max:50',
+            'modelo'      => 'required|string|max:100',
+            'diagnostico' => 'nullable|string|max:255',
+            'estado'      => 'required|in:Operativo,En Taller,Pendiente',
         ];
     }
 
-    // Mensajes de error personalizados en español
     public function messages(): array
     {
         return [
-            'marca.required'  =&gt; 'Debes ingresar la marca del equipo.',
-            'modelo.required' =&gt; 'El modelo es obligatorio.',
-            'estado.in'       =&gt; 'El estado seleccionado no es válido.',
+            'marca.required'  => 'Debes ingresar la marca.',
+            'modelo.required' => 'El modelo es obligatorio.',
+            'estado.in'       => 'Estado no válido.',
         ];
     }
-}
-            </code></pre>
+}</code></pre>
         </div>
-
-        <div>
-            <p class="text-xs font-bold uppercase text-slate-500 mb-2">&#128196; Controlador usando el Form Request (más limpio)</p>
-            <pre><code class="language-php rounded-md">
-// Se inyecta RegistroEquipoRequest en vez de Request genérico
-// Laravel valida automáticamente ANTES de ejecutar este método
+        <div class="panel-dark">
+            <div class="code-label">php — controlador usando Form Request</div>
+            <pre><code class="language-php">// Laravel valida automáticamente antes de ejecutar
 public function store(RegistroEquipoRequest $request)
 {
-    // Si llega aquí, los datos ya pasaron la validación
     $equipo = new Equipo();
-    $equipo-&gt;marca       = $request-&gt;marca;
-    $equipo-&gt;modelo      = $request-&gt;modelo;
-    $equipo-&gt;diagnostico = $request-&gt;diagnostico;
-    $equipo-&gt;estado      = $request-&gt;estado;
-    $equipo-&gt;save();
+    $equipo->fill($request->validated());
+    $equipo->save();
 
-    return redirect()-&gt;route('nt5.index')
-                     -&gt;with('exito', '¡Equipo registrado!');
-}
-            </code></pre>
+    return redirect()->route('nt5.index')
+                     ->with('exito', '¡Equipo registrado!');
+}</code></pre>
         </div>
     </div>
 </div>
 
-<hr class="my-8 border-gray-300">
+<hr>
 
-{{-- BLOQUE 3: EJEMPLO PRÁCTICO FUNCIONAL --}}
-<div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-    <h3 class="text-2xl font-bold text-blue-800 mb-2">Ejemplo Práctico Funcional (Conexión a BD)</h3>
-    <p class="text-blue-900 mb-4">
-        Ingresa un nuevo equipo tecnológico. Intenta enviar el formulario vacío para probar las validaciones en tiempo real. Si el registro es exitoso, podrás ver el nuevo equipo listado en la pestaña del <strong>NT4</strong>.
+<!-- Bloque 3: Ejemplo práctico funcional -->
+<div class="panel-accent" style="margin-bottom:1.5rem;">
+    <h4 style="color:var(--accent); margin-bottom:0.5rem;">Ejemplo Práctico Funcional</h4>
+    <p style="font-size:0.85rem; color:var(--ink-soft);">
+        Envía el formulario vacío para activar las validaciones. Un registro exitoso persiste en MySQL y aparece en el inventario del NT4.
     </p>
+</div>
 
-    @if(session('exito'))
-        <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-800 rounded font-medium shadow-sm">
+@if(session('exito'))
+    <div class="panel-success" style="margin-bottom:1.5rem;">
+        <p style="font-size:0.88rem; font-family:'IBM Plex Mono',monospace; color:#2d5a40;">
             {{ session('exito') }}
-        </div>
-    @endif
-    
-    <div id="practica-nt5" class="bg-white p-6 rounded-lg shadow-sm border border-blue-100 max-w-xl">
-        <form action="{{ route('nt5.guardar') }}" method="POST" class="space-y-4">
-            @csrf
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Marca *</label>
-                    <input type="text" name="marca" value="{{ old('marca') }}" 
-                        class="w-full p-2 border rounded focus:ring-2 outline-none {{ $errors->has('marca') ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-500' }}">
-                    @error('marca')
-                        <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                    @enderror
-                </div>
+        </p>
+    </div>
+@endif
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Modelo *</label>
-                    <input type="text" name="modelo" value="{{ old('modelo') }}" 
-                        class="w-full p-2 border rounded focus:ring-2 outline-none {{ $errors->has('modelo') ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-500' }}">
-                    @error('modelo')
-                        <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
+<div style="max-width:520px; background:#fff; border:1px solid var(--rule); border-radius:4px; padding:1.75rem;">
+    <form action="{{ route('nt5.guardar') }}" method="POST" style="display:flex; flex-direction:column; gap:1.1rem;">
+        @csrf
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Diagnóstico Técnico</label>
-                <textarea name="diagnostico" rows="3" 
-                    class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none">{{ old('diagnostico') }}</textarea>
-            </div>
-
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Estado de Operación *</label>
-                <select name="estado" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none">
-                    <option value="">Seleccione una opción...</option>
-                    <option value="Operativo" {{ old('estado') == 'Operativo' ? 'selected' : '' }}>Operativo</option>
-                    <option value="En Taller" {{ old('estado') == 'En Taller' ? 'selected' : '' }}>En Taller</option>
-                    <option value="Pendiente" {{ old('estado') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                </select>
-                @error('estado')
-                    <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                <label class="form-label">Marca <span style="color:var(--accent);">*</span></label>
+                <input type="text" name="marca" value="{{ old('marca') }}"
+                    class="form-input {{ $errors->has('marca') ? 'error' : '' }}"
+                    placeholder="ej: Lenovo">
+                @error('marca')
+                    <div class="form-error">{{ $message }}</div>
                 @enderror
             </div>
+            <div>
+                <label class="form-label">Modelo <span style="color:var(--accent);">*</span></label>
+                <input type="text" name="modelo" value="{{ old('modelo') }}"
+                    class="form-input {{ $errors->has('modelo') ? 'error' : '' }}"
+                    placeholder="ej: IdeaPad 5">
+                @error('modelo')
+                    <div class="form-error">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
 
-            <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded transition duration-200 mt-4">
-                Registrar Equipo
-            </button>
-        </form>
-    </div>
+        <div>
+            <label class="form-label">Diagnóstico Técnico</label>
+            <textarea name="diagnostico" rows="3"
+                class="form-input"
+                style="resize:vertical;"
+                placeholder="Descripción del fallo o mantenimiento...">{{ old('diagnostico') }}</textarea>
+        </div>
+
+        <div>
+            <label class="form-label">Estado de Operación <span style="color:var(--accent);">*</span></label>
+            <select name="estado" class="form-input {{ $errors->has('estado') ? 'error' : '' }}">
+                <option value="">Seleccione...</option>
+                <option value="Operativo"  {{ old('estado') == 'Operativo'  ? 'selected' : '' }}>Operativo</option>
+                <option value="En Taller"  {{ old('estado') == 'En Taller'  ? 'selected' : '' }}>En Taller</option>
+                <option value="Pendiente"  {{ old('estado') == 'Pendiente'  ? 'selected' : '' }}>Pendiente</option>
+            </select>
+            @error('estado')
+                <div class="form-error">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn-primary">Registrar Equipo</button>
+    </form>
 </div>
 
 @endsection
