@@ -13,7 +13,7 @@
             <h3>Historia y Características de Laravel</h3>
         </div>
         <p style="margin-bottom:1rem;">
-            Laravel fue creado por <strong>Taylor Otwell</strong> y lanzado en <strong>junio de 2011</strong> como una alternativa más elegante y expresiva a CodeIgniter, que en ese momento carecía de soporte nativo para autenticación y autorización.
+            Laravel fue creado por <strong>Taylor Otwell</strong> y lanzado en <strong>Junio de 2011</strong> como una alternativa más elegante y expresiva a CodeIgniter, que en ese momento carecía de soporte nativo para autenticación y autorización.
         </p>
         <p style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:1rem;">
             Desde su primera versión, el framework creció rápidamente hasta convertirse en el framework PHP más popular del mundo, con versiones mayores que introdujeron características fundamentales:
