@@ -18,7 +18,6 @@
     <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
 
     <style>
-        /* ── Design Tokens ─────────────────────────────────── */
         :root {
             --ink:        #1a1a1a;
             --ink-soft:   #4a4a4a;
@@ -34,7 +33,6 @@
             --code-bg:    #1c1e26;
         }
 
-        /* ── Base ───────────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html { scroll-behavior: smooth; }
@@ -49,7 +47,6 @@
             min-height: 100vh;
         }
 
-        /* ── Sidebar ────────────────────────────────────────── */
         .sidebar {
             width: 260px;
             min-height: 100vh;
@@ -150,7 +147,6 @@
             text-align: center;
         }
 
-        /* ── Main ───────────────────────────────────────────── */
         .main-content {
             flex: 1;
             overflow-y: auto;
@@ -186,7 +182,6 @@
             max-width: 1100px;
         }
 
-        /* ── Typography ─────────────────────────────────────── */
         h3 {
             font-family: 'Instrument Serif', serif;
             font-size: 1.35rem;
@@ -222,14 +217,12 @@
         ul li { color: var(--ink-soft); font-size: 0.9rem; }
         ul li strong { color: var(--ink); }
 
-        /* ── Rule / Divider ─────────────────────────────────── */
         hr {
             border: none;
             border-top: 1px solid var(--rule);
             margin: 2.5rem 0;
         }
 
-        /* ── Cards & Panels ─────────────────────────────────── */
         .panel {
             background: #fff;
             border: 1px solid var(--rule);
@@ -267,8 +260,6 @@
             border-radius: 0 4px 4px 0;
             padding: 1.25rem 1.5rem;
         }
-
-        /* ── Code blocks ────────────────────────────────────── */
         pre {
             border-radius: 4px;
             overflow-x: auto;
@@ -303,7 +294,6 @@
             border-radius: 50%;
         }
 
-        /* ── Grid layout helpers ────────────────────────────── */
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -317,7 +307,6 @@
             .page-header, .content-area { padding-left: 1.5rem; padding-right: 1.5rem; }
         }
 
-        /* ── Section headers ─────────────────────────────────── */
         .section-heading {
             display: flex;
             align-items: center;
@@ -338,7 +327,6 @@
             flex-shrink: 0;
         }
 
-        /* ── Table ───────────────────────────────────────────── */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -385,7 +373,6 @@
 
         .data-table tbody td.strong { color: var(--ink); font-weight: 500; }
 
-        /* ── Badges ──────────────────────────────────────────── */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -406,7 +393,6 @@
         .badge-start  { background: #f0f3fd; color: #2040a0; border: 1px solid #c0ccee; }
         .badge-end    { background: #fdf5e6; color: #7a5c0a; border: 1px solid #e8d5a0; }
 
-        /* ── Directive legend pills ──────────────────────────── */
         .directive-legend {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -442,7 +428,6 @@
             color: var(--ink-muted);
         }
 
-        /* ── Cycle flow ──────────────────────────────────────── */
         .cycle-flow {
             display: flex;
             flex-wrap: wrap;
@@ -468,7 +453,6 @@
         .node-green  { background: #ecf5ef; color: #2d6b47; border: 1px solid #c0ddc9; }
         .node-purple { background: #f4f0fb; color: #5a2890; border: 1px solid #d0c0ec; }
 
-        /* ── Rule grid ──────────────────────────────────────── */
         .rules-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -495,7 +479,6 @@
             padding: 0;
         }
 
-        /* ── Forms ───────────────────────────────────────────── */
         .form-label {
             display: block;
             font-size: 0.78rem;
@@ -557,7 +540,6 @@
 
         .btn-primary:active { transform: translateY(0); }
 
-        /* ── Server info bar ─────────────────────────────────── */
         .info-bar {
             display: flex;
             justify-content: space-between;
@@ -574,7 +556,6 @@
 
         .info-bar span strong { color: #c0bcd4; }
 
-        /* ── Status dot ──────────────────────────────────────── */
         .status-dot {
             display: inline-flex;
             align-items: center;
@@ -595,7 +576,6 @@
             50%       { opacity: 0.35; }
         }
 
-        /* ── Page fade-in ────────────────────────────────────── */
         .content-area {
             animation: fadein 0.25s ease;
         }
@@ -608,7 +588,6 @@
 </head>
 <body>
 
-    <!-- ─── SIDEBAR ──────────────────────────────────────────── -->
     <aside class="sidebar">
         <div class="sidebar-brand">
             <div class="wordmark">Guía Laravel</div>
@@ -640,7 +619,6 @@
         </div>
     </aside>
 
-    <!-- ─── MAIN ─────────────────────────────────────────────── -->
     <main class="main-content">
 
         <header class="page-header">

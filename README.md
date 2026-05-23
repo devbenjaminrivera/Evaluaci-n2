@@ -1,13 +1,8 @@
 # Guía Didáctica Interactiva de Laravel (NT1 — NT5)
-### Universidad Adventista de Chile (UNACH)
-**Facultad de Ingeniería y Negocios** **Asignatura:** Electivo Profesional I — Desarrollo Web con Laravel  
-**Nota 2 (20%):** Guía Didáctica de Núcleos Temáticos  
-**Año Académico:** 2026  
-
----
-
-## Identificación del Equipo
 * **Alumno:** Benjamín Felipe Rivera Araneda (Ingeniería Civil Informática)
+**Facultad de Ingeniería y Negocios** **Asignatura:** Electivo Profesional I — Desarrollo Web con Laravel  
+**Nota 2:** Guía Didáctica de Núcleos Temáticos  
+**Año Académico:** 2026  
 
 ---
 
@@ -65,7 +60,7 @@ php artisan key:generate
 
 ### 5. Crear la Base de Datos en XAMPP
 1. Inicie el panel de control de **XAMPP** y active **Apache** y **MySQL**.
-2. Diríjase a su navegador e ingrese a `http://localhost/phpmyadmin`.
+2. Diríjase a su navegador e ingrese a `http://localhost/phpmyadmin` o presione directamente el botón `Admin` de **MySQL**.
 3. Haga clic en **"Nueva"** en el panel izquierdo.
 4. Escriba el nombre exacto de la base de datos: `laravel_unach`.
 5. Seleccione el cotejamiento `utf8mb4_unicode_ci` y presione **"Crear"**.
